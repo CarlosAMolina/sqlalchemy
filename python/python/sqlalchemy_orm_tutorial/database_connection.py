@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 class Database:
@@ -9,6 +10,7 @@ class Database:
     ):
         self._db_dialect = db_dialect
         self._db_name = db_name
+        self.session = self._session()
 
     def __enter__(self):
         return self.engine.connect()
@@ -19,3 +21,7 @@ class Database:
     @property
     def engine(self):
         return create_engine(f"{self._db_dialect}:///{self._db_name}", echo=True)
+
+    def _session(self):
+        Session = sessionmaker(bind=self.engine)
+        return Session()

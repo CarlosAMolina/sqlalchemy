@@ -4,7 +4,7 @@ import models
 from database_connection import Database
 
 
-def get_rows_using_the_model():
+def _get_rows_using_the_model():
     s = models.students.select()
     with Database() as connection:
         result = connection.execute(s)
@@ -12,7 +12,7 @@ def get_rows_using_the_model():
             print(row)
 
 
-def get_rows_using_sql_string():
+def _get_rows_using_sql_string():
     t = text("SELECT * FROM students")
     with Database() as connection:
         result = connection.execute(t)
@@ -21,5 +21,5 @@ def get_rows_using_sql_string():
 
 
 if __name__ == "__main__":
-    get_rows_using_the_model()
-    get_rows_using_sql_string()
+    _get_rows_using_the_model()
+    _get_rows_using_sql_string()
